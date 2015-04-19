@@ -11,7 +11,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150419000958) do
+ActiveRecord::Schema.define(version: 20150419203204) do
+
+  create_table "groups", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.text     "description"
+    t.string   "url"
+    t.string   "picture"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "groups", ["user_id"], name: "index_groups_on_user_id"
+
+  create_table "memberships", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "group_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "memberships", ["group_id"], name: "index_memberships_on_group_id"
+  add_index "memberships", ["user_id", "group_id"], name: "index_memberships_on_user_id_and_group_id", unique: true
+  add_index "memberships", ["user_id"], name: "index_memberships_on_user_id"
+
+  create_table "organizations", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "group_id"
+    t.string   "name"
+    t.text     "description"
+    t.string   "location"
+    t.string   "url"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "organizations", ["group_id"], name: "index_organizations_on_group_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -26,6 +62,8 @@ ActiveRecord::Schema.define(version: 20150419000958) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "provider"
+    t.string   "uid"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

@@ -5,4 +5,23 @@ rescue LoadError
 end
 APP_PATH = File.expand_path('../../config/application', __FILE__)
 require_relative '../config/boot'
+
+
+# added for the sake changing default localhost name
+require "rails/commands/server"
+module Rails
+  class Server
+    def default_options
+      super.merge({
+        :Host         =>  'local.host',
+        :Port         =>  3000,
+        :environment  =>  (ENV['RAILS_ENV'] || 'development').dup
+        })
+    end
+  end
+end
+
+
+
+
 require 'rails/commands'

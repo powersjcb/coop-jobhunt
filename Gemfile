@@ -14,6 +14,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'therubyracer'
 gem 'devise'
 gem 'omniauth'
+gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'bcrypt', '~> 3.1.10'
 
