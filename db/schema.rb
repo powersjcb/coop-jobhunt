@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150419203204) do
+ActiveRecord::Schema.define(version: 20150419214520) do
 
   create_table "groups", force: :cascade do |t|
     t.integer  "user_id"
@@ -25,6 +25,19 @@ ActiveRecord::Schema.define(version: 20150419203204) do
 
   add_index "groups", ["user_id"], name: "index_groups_on_user_id"
 
+  create_table "listings", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "organization_id"
+    t.string   "name"
+    t.text     "description"
+    t.string   "location"
+    t.string   "url"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "listings", ["organization_id"], name: "index_listings_on_organization_id"
+
   create_table "memberships", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "group_id"
@@ -35,6 +48,19 @@ ActiveRecord::Schema.define(version: 20150419203204) do
   add_index "memberships", ["group_id"], name: "index_memberships_on_group_id"
   add_index "memberships", ["user_id", "group_id"], name: "index_memberships_on_user_id_and_group_id", unique: true
   add_index "memberships", ["user_id"], name: "index_memberships_on_user_id"
+
+  create_table "opportunities", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "listing_id"
+    t.string   "status"
+    t.datetime "status_changed", default: '2015-04-20 01:02:21'
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+  end
+
+  add_index "opportunities", ["user_id", "listing_id"], name: "index_opportunities_on_user_id_and_listing_id", unique: true
+  add_index "opportunities", ["user_id", "status"], name: "index_opportunities_on_user_id_and_status"
+  add_index "opportunities", ["user_id"], name: "index_opportunities_on_user_id"
 
   create_table "organizations", force: :cascade do |t|
     t.integer  "user_id"

@@ -1,7 +1,7 @@
 class CreateOrganizations < ActiveRecord::Migration
   def change
     create_table :organizations do |t|
-      t.references      :user #creator
+      t.references      :user
       t.references      :group
       t.string          :name, unique: true
       t.text            :description

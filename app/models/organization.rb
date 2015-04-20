@@ -1,22 +1,21 @@
 # == Schema Information
 #
-# Table name: groups
+# Table name: organizations
 #
 #  id          :integer          not null, primary key
 #  user_id     :integer
+#  group_id    :integer
 #  name        :string
 #  description :text
+#  location    :string
 #  url         :string
-#  picture     :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
 
-class Group < ActiveRecord::Base
+class Organization < ActiveRecord::Base
   belongs_to :user
-  has_many :organizations
-  has_many :memberships
-  has_many :listings, through: :organizations
-
+  belongs_to :group
+  has_many :listings
 
 end

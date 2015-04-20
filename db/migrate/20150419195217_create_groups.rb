@@ -1,7 +1,7 @@
 class CreateGroups < ActiveRecord::Migration
   def change
     create_table :groups do |t|
-      t.references  :user, index: true
+      t.references  :creator, index: true
       t.string      :name, unique: true
       t.text        :description
       t.string      :url

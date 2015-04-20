@@ -21,7 +21,12 @@
 
 class User < ActiveRecord::Base
   has_many :groups
-  has_many :memberships
+  has_many :memberships, dependent: :destroy
+  has_many :organizations
+  has_many :listings
+  has_many :opportunities, dependent: :destroy
+  has_many :applications, through: :opportunities, source: :listing
+  # has_many :votes
 
 
 
